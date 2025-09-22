@@ -133,6 +133,9 @@ const speakButton = document.getElementById("speak");
 speakButton.addEventListener("click", () => {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = 'pt-BR';
+
+    // Alterar texto do botão para "Gravando..."
+    speakButton.innerText = "Gravando...";
     recognition.start();
 
     recognition.onresult = (event) => {
@@ -142,5 +145,10 @@ speakButton.addEventListener("click", () => {
 
     recognition.onerror = (event) => {
         console.error("Erro de reconhecimento de fala:", event.error);
+    };
+
+    recognition.onend = () => {
+        // Alterar texto do botão de volta para "🎤"
+        speakButton.innerText = "🎤";
     };
 });
