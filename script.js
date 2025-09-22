@@ -126,3 +126,21 @@ document.addEventListener("click", (e) => {
         floatingBox.classList.remove("active");
     }
 });
+
+const transcription = document.getElementById("input");
+const speakButton = document.getElementById("speak");
+
+speakButton.addEventListener("click", () => {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'pt-BR';
+    recognition.start();
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        transcription.value = transcript;
+    };
+
+    recognition.onerror = (event) => {
+        console.error("Erro de reconhecimento de fala:", event.error);
+    };
+});
